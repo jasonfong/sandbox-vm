@@ -1,0 +1,28 @@
+---
+- hosts: 127.0.0.1
+  remote_user: vagrant
+  sudo: true
+
+  tasks:
+
+  - name: update apt
+    apt: update_cache=yes
+         upgrade=yes
+         cache_valid_time=3600
+
+  - name: install apt packages
+    apt: pkg={{ item }}
+         state=installed
+         cache_valid_time=3600
+    with_items:
+      - git
+      - byobu
+      - python-pip
+      - python-virtualenv
+
+  - name: install pip packages
+    pip: name={{ item }}
+         state=latest
+         virtualenv=/usr/local/virtualenv/sandbox-vm
+    with_items:
+      - ipython
