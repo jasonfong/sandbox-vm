@@ -17,6 +17,10 @@ Vagrant.configure(2) do |config|
     vb.memory = "1024"
   end
 
+  # Temporary workaround for broken Ansible 2.0 in Vagrant 1.8.1
+  config.vm.provision "shell",
+    inline: "sudo apt-get install -qq -y python-pip python-dev && sudo pip install ansible==1.9.6 && sudo cp /usr/local/bin/ansible /usr/bin/ansible"
+
   # Ansible provisioning
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "playbook.yaml"
