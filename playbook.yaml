@@ -1,5 +1,5 @@
 ---
-- hosts: 127.0.0.1
+- hosts: default
   remote_user: vagrant
   sudo: true
 
@@ -19,6 +19,8 @@
       - byobu
       - python-pip
       - python-virtualenv
+      - python-numpy
+      - python-sklearn
 
   - name: install pip packages
     pip: name={{ item }}
@@ -26,3 +28,4 @@
          virtualenv=/usr/local/virtualenv/sandbox-vm
     with_items:
       - ipython
+      - https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-0.9.0rc0-cp27-none-linux_x86_64.whl
